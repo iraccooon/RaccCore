@@ -145,19 +145,17 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
                 event.setItem(newItem);
 
                 // remove those items from inventory
-                int leftover = slot.getAmount() - toDispense;
+                int leftover = slot.getAmount() - (toDispense - 1);
                 if(leftover <= 0){
                     inv.setItem(i, null);
-                }
-                else{
+                } else {
                     slot.setAmount(leftover);
+                    inv.setItem(i, slot);
                 }
                 break;
             }
         }
-
     }
-
 
 
     @Override
