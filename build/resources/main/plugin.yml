@@ -1,5 +1,5 @@
 name: RaccCore
-version: 1.1.2
+version: 1.2.0
 main: com.iraccooon.racccore.RaccCore
 api-version: '26.1.2' #do not edit
 description: Core plugin for RaccCore features
@@ -7,10 +7,6 @@ description: Core plugin for RaccCore features
 commands:
   racc:
     description: base RaccCore commands (help, reload, etc.)
-  raccfurnaces:
-    description: RaccFurnaces toggle command
-    aliases:
-      - rfurnace
   raccstacks:
     description: RaccStacks toggle command
     aliases:
@@ -26,9 +22,6 @@ commands:
 permissions:
   racccore.admin:
     description: Allows use of /racc reload
-    default: false
-  raccfurnaces.admin:
-    description: Access to RaccFurnaces commands
     default: false
   raccstacks.admin:
     description: Access to RaccStacks commands
