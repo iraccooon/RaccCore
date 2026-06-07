@@ -153,6 +153,7 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
                     slot.setAmount(leftover);
                     inv.setItem(i, slot);
                 }
+                container.update(); // force the changes back to the world
                 break;
             }
         }
