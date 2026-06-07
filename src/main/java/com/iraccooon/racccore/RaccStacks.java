@@ -137,23 +137,27 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
         for(int i = 0; i < inv.getSize(); i++){
             ItemStack slot = inv.getItem(i);
             if(slot != null && slot.isSimilar(dispensed)){
-                int actualAmount = slot.getAmount() + 1; // restore the 1 vanilla already removed
+                int actualAmount = slot.getAmount() + 1;
                 int toDispense = Math.min(actualAmount, maxStack);
 
-                // set ejected amount to full stack
                 ItemStack newItem = dispensed.clone();
                 newItem.setAmount(toDispense);
                 event.setItem(newItem);
 
-                // remove those items from inventory
                 int leftover = actualAmount - toDispense;
-                if(leftover <= 0){
-                    inv.setItem(i, null);
-                } else {
-                    slot.setAmount(leftover);
-                    inv.setItem(i, slot);
-                }
-                container.update(); // force the changes back to the world
+                final int slotIndex = i;
+                final int leftoverAmount = leftover;
+
+                // delay inventory update by 1 tick so vanilla doesn't overwrite it
+                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                    if(leftoverAmount <= 0){
+                        inv.setItem(slotIndex, null);
+                    } else {
+                        ItemStack remaining = slot.clone();
+                        remaining.setAmount(leftoverAmount);
+                        inv.setItem(slotIndex, remaining);
+                    }
+                });
                 break;
             }
         }
