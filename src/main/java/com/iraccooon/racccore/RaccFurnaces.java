@@ -1,6 +1,7 @@
 package com.iraccooon.racccore;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,19 +19,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
-    private boolean bfEnabled;
+    private boolean furnaceEnabled;
+    private boolean blastFurnaceEnabled;
+    private boolean smokerEnabled;
     private final JavaPlugin plugin;
 
     // update constructor to store plugin
     public RaccFurnaces(JavaPlugin plugin){
         this.plugin = plugin;
-        this.bfEnabled = plugin.getConfig().getBoolean("RaccFurnaces-enabled");
+        this.furnaceEnabled = plugin.getConfig().getBoolean("RaccFurnaces-enabled");
+        this.blastFurnaceEnabled = plugin.getConfig().getBoolean("RaccBlastFurnaces-enabled");
+        this.smokerEnabled = plugin.getConfig().getBoolean("RaccSmokers-enabled");
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         plugin.getCommand("raccfurnaces").setExecutor(this);
     }
 
     public void reload(){
-        this.bfEnabled = plugin.getConfig().getBoolean("RaccFurnaces-enabled");
+        this.furnaceEnabled = plugin.getConfig().getBoolean("RaccFurnaces-enabled");
+        this.blastFurnaceEnabled = plugin.getConfig().getBoolean("RaccBlastFurnaces-enabled");
+        this.smokerEnabled = plugin.getConfig().getBoolean("RaccSmokers-enabled");
     }
 
 
@@ -42,18 +49,72 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
             return true;
         }
         if(args.length==0){
-            sender.sendMessage("§eUsage: /bf toggle");
+            sender.sendMessage("§eUsage: /raccfurnaces toggle <furnaces | blastfurnaces | smokers | all>");
             return true;
         }
-        switch(args[0].toLowerCase()){
-            case "toggle":
-                bfEnabled = !bfEnabled; //toggle switch
-                sender.sendMessage("§aRaccFurnaces is now "+(bfEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                return true;
-            default:
-                sender.sendMessage("§eUsage: /bf toggle");
-                return true;
+        if(args.length == 1){
+            switch(args[0].toLowerCase()){
+                case "toggle":
+                    //switch boolean (toggle)
+                    //first way to toggle all
+                    furnaceEnabled = !furnaceEnabled;
+                    blastFurnaceEnabled = !blastFurnaceEnabled;
+                    smokerEnabled = !smokerEnabled;
+                    //set and save config
+                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
+                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
+                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
+                    plugin.saveConfig();
+                    //send message
+                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    return true;
+                default:
+                    sender.sendMessage("§eUsage: /raccfurnaces toggle <furnaces | blastfurnaces | smokers | all>");
+                    return true;
+            }
         }
+        if(args.length == 2){
+            switch(args[1].toLowerCase()){
+                case "furnaces":
+                    furnaceEnabled = !furnaceEnabled;
+                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
+                    plugin.saveConfig();
+                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    return true;
+                case "blastfurnaces":
+                    blastFurnaceEnabled = !blastFurnaceEnabled;
+                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
+                    plugin.saveConfig();
+                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    return true;
+                case "smokers":
+                    smokerEnabled = !smokerEnabled;
+                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
+                    plugin.saveConfig();
+                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    return true;
+                case "all":
+                    //2nd way to toggle all
+                    furnaceEnabled = !furnaceEnabled;
+                    blastFurnaceEnabled = !blastFurnaceEnabled;
+                    smokerEnabled = !smokerEnabled;
+                    //save and set config
+                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
+                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
+                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
+                    plugin.saveConfig();
+                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    return true;
+                default:
+                    sender.sendMessage("§eUsage: /raccfurnaces toggle <furnaces | blastfurnaces | smokers | all>");
+                    return true;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -62,13 +123,20 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         if(args.length == 1){
             return List.of("toggle");
         }
+        if(args.length == 2){
+            return List.of("furnaces", "blastfurnaces", "smokers", "all");
+        }
 
         return List.of();
     }
 
     @EventHandler
     public void onSmelt(FurnaceSmeltEvent event){
-        if(!bfEnabled) return;
+        Material blockType = event.getBlock().getType();
+
+        if(blockType == Material.FURNACE && !furnaceEnabled) return;
+        if(blockType == Material.BLAST_FURNACE && !blastFurnaceEnabled) return;
+        if(blockType == Material.SMOKER && !smokerEnabled) return;
 
         Furnace furnace = (Furnace)event.getBlock().getState();
         FurnaceInventory furnInv = furnace.getInventory();
@@ -122,7 +190,11 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
 
     @EventHandler
     public void onExtract(FurnaceExtractEvent event){
-        if(!bfEnabled) return;
+        Material blockType = event.getBlock().getType();
+
+        if(blockType == Material.FURNACE && !furnaceEnabled) return;
+        if(blockType == Material.BLAST_FURNACE && !blastFurnaceEnabled) return;
+        if(blockType == Material.SMOKER && !smokerEnabled) return;
 
         int items = event.getItemAmount();
         event.setExpToDrop(event.getExpToDrop() * items);

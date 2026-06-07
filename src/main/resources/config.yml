@@ -1,5 +1,10 @@
 #RaccFurnaces config
+#toggle for furnaces
 RaccFurnaces-enabled: false
+#toggle for blast furnaces
+RaccBlastFurnaces-enabled: false
+#toggle for smokers
+RaccSmokers-enabled: false
 
 
 #1561 = default diamond durability (number of blocks broken before durability hits 0)
