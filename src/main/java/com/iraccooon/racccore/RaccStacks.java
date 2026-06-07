@@ -114,6 +114,10 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
     public void onDispense(BlockDispenseEvent event){
         Material blockType = event.getBlock().getType();
 
+        if(blockType == Material.DROPPER || blockType == Material.DISPENSER){
+            plugin.getLogger().info("Dispense fired - block: " + blockType + ", item: " + event.getItem().getType() + ", amount: " + event.getItem().getAmount());
+        }
+
         // skip if neither is enabled or wrong block type
         if(blockType != Material.DROPPER && blockType != Material.DISPENSER) return;
         if(blockType == Material.DROPPER && !dropperEnabled) return;
