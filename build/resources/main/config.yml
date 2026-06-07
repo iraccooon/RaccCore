@@ -1,0 +1,22 @@
+#RaccFurnaces config
+RaccFurnaces-enabled: false
+
+
+#1561 = default diamond durability (number of blocks broken before durability hits 0)
+#enter "false" to make unbreakable
+concrete-shovel-durability: 1561
+
+
+#scheduled broadcasts
+broadcasts:
+  #interval between messages, "<int><unit>" (e.g. "1min" or "60sec")
+  interval: "10min"
+  messages:
+  #minimessage syntax
+  #messages must be inline ('\n' for next line)
+  #no message limit, broadcast in top-down order
+  #create new message with hyphen (-), and surround in quotation marks
+  #see https://webui.advntr.dev/ for easy formatting environment
+  - "<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</dark_gray>\n<light_purple><bold>OracleMC Discord</bold></light_purple>\n<gray>Stay up to date with server news, events, and giveaways.</gray>\n<hover:show_text:'<gray>Click to join!</gray>'><click:open_url:'https://discord.gg/XuC6mwsfA8'><aqua><bold>CLICK TO JOIN DISCORD</bold></aqua></click>\n<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</dark_gray>"
+  - "<i><u><b><color:#00ff04>Example Message 2</color></b></u></i>"
+  - "<bold><rainbow>Example Message 3</rainbow></bold>"

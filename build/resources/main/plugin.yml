@@ -1,0 +1,40 @@
+name: RaccCore
+version: 1.3.0
+main: com.iraccooon.racccore.RaccCore
+api-version: '26.1.2' #do not edit
+description: Core plugin for Racc features
+
+commands:
+  racc:
+    description: base RaccCore commands (help, reload, etc.)
+  raccfurnaces:
+    description: RaccFurnaces toggle command
+    aliases:
+      - rfurnace
+  maplock:
+    description: Locks the map you are holding (cannot copy, does not change state)
+  giveconcshovel:
+    description: Give player special concrete shovel
+    aliases:
+      - concshovel
+      - giveshovel
+
+permissions:
+  racccore.admin:
+    description: Allows use of /racc reload
+    default: false
+  raccfurnaces.admin:
+    description: Access to RaccFurnaces commands
+    default: false
+  raccfurnaces.use:
+    description: Allows bulk smelting (plugin use)
+    default: false
+  raccmaplock.admin:
+    description: Can lock/unlock any map regardless of owner
+    default: false
+  giveconcshovel.use:
+    description: Allows use of /giveconcshovel command
+    default: false
+  raccconcrete.use:
+    description: Allows use of easy concrete plugin
+    default: false
