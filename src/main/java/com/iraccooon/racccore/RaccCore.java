@@ -1,7 +1,8 @@
 package com.iraccooon.racccore;
 
-import com.iraccooon.racccore.commands.GiveRaccConcreteShovelCommand;
-import com.iraccooon.racccore.commands.RaccCoreReloadCommand;
+import com.iraccooon.racccore.commands.RaccConcreteShovelCommands;
+import com.iraccooon.racccore.commands.RaccCoreCommands;
+import com.iraccooon.racccore.commands.RaccStacksCommands;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RaccCore extends JavaPlugin{
@@ -29,11 +30,14 @@ public class RaccCore extends JavaPlugin{
 
     //helper to clean up onEnable()
     private void registerCommands(){
-        RaccCoreReloadCommand raccCoreReload = new RaccCoreReloadCommand(this, raccStacks, raccCast);
+        RaccCoreCommands raccCoreReload = new RaccCoreCommands(this, raccStacks, raccCast);
         getCommand("racc").setExecutor(raccCoreReload);
         getCommand("racc").setTabCompleter(raccCoreReload);
-        getCommand("giveconcshovel").setExecutor(new GiveRaccConcreteShovelCommand(this));
-        getCommand("raccstacks").setExecutor(raccStacks);
-        getCommand("raccstacks").setTabCompleter(raccStacks);
+
+        RaccStacksCommands raccStacksCommand = new RaccStacksCommands(raccStacks);
+        getCommand("raccstacks").setExecutor(raccStacksCommand);
+        getCommand("raccstacks").setTabCompleter(raccStacksCommand);
+
+        getCommand("giveconcshovel").setExecutor(new RaccConcreteShovelCommands(this));
     }
 }

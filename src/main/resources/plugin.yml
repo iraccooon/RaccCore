@@ -1,5 +1,5 @@
 name: RaccCore
-version: 1.2.0
+version: 1.2.1
 main: com.iraccooon.racccore.RaccCore
 api-version: '26.1.2' #do not edit
 description: Core plugin for RaccCore features
@@ -7,6 +7,8 @@ description: Core plugin for RaccCore features
 commands:
   racc:
     description: base RaccCore commands (help, reload, etc.)
+    aliases:
+      - racccore
   raccstacks:
     description: RaccStacks toggle command
     aliases:
@@ -26,7 +28,7 @@ permissions:
   raccstacks.admin:
     description: Access to RaccStacks commands
     default: false
-  raccmaplock.admin:
+  racclock.admin:
     description: Can lock/unlock any map regardless of owner
     default: false
   giveconcshovel.use:

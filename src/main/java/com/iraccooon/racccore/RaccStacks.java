@@ -3,10 +3,7 @@ package com.iraccooon.racccore;
 import org.bukkit.Material;
 import org.bukkit.block.Container;
 import org.bukkit.block.Furnace;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
@@ -18,13 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.block.Dropper;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-import java.util.List;
-
-public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
+public class RaccStacks implements Listener {
     private boolean dropperEnabled;
     private boolean dispenserEnabled;
     private boolean furnaceEnabled;
@@ -77,79 +71,39 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
         sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
     }
 
-    @Override
-    public @Nullable List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
-        if(args.length == 1){
-            return List.of("toggle");
-        }
-        if(args.length == 2){
-            return List.of("droppers", "dispensers", "furnaces", "blastfurnaces", "smokers", "all");
-        }
-        return List.of();
+    public void toggleFurnace(CommandSender sender){
+        furnaceEnabled = !furnaceEnabled;
+        plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-        if(!sender.hasPermission("raccstacks.admin")){
-            sender.sendMessage("§cYou don't have permission to use this command!");
-            return true;
-        }
-        if(args.length == 0){
-            sender.sendMessage("§eUsage: /raccstacks toggle <droppers | dispensers | furnaces | blastfurnaces | smokers | all>");
-            return true;
-        }
-        if(args.length == 1){
-            switch(args[0].toLowerCase()){
-                case "toggle":
-                    // Switch all
-                    toggleAll(sender);
-                    return true;
-                default:
-                    sender.sendMessage("§eUsage: /raccstacks toggle <droppers | dispensers | furnaces | blastfurnaces | smokers | all>");
-                    return true;
-            }
-        }
-        if(args.length == 2){
-            switch(args[1].toLowerCase()){
-                case "droppers":
-                    dropperEnabled = !dropperEnabled;
-                    plugin.getConfig().set("RaccDroppers-enabled", dropperEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccDroppers are now "+(dropperEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    return true;
-                case "dispensers":
-                    dispenserEnabled = !dispenserEnabled;
-                    plugin.getConfig().set("RaccDispensers-enabled", dispenserEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccDispensers are now "+(dispenserEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    return true;
-                case "furnaces":
-                    furnaceEnabled = !furnaceEnabled;
-                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    return true;
-                case "blastfurnaces":
-                    blastFurnaceEnabled = !blastFurnaceEnabled;
-                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    return true;
-                case "smokers":
-                    smokerEnabled = !smokerEnabled;
-                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    return true;
-                case "all":
-                    toggleAll(sender);
-                    return true;
-                default:
-                    sender.sendMessage("§eUsage: /raccstacks toggle <droppers | dispensers | furnaces | blastfurnaces | smokers | all>");
-                    return true;
-            }
-        }
-        return true;
+    public void toggleBlastFurnace(CommandSender sender){
+        blastFurnaceEnabled = !blastFurnaceEnabled;
+        plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+    }
+
+    public void toggleSmoker(CommandSender sender){
+        smokerEnabled = !smokerEnabled;
+        plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+    }
+
+    public void toggleDropper(CommandSender sender){
+        dropperEnabled = !dropperEnabled;
+        plugin.getConfig().set("RaccDroppers-enabled", dropperEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccDroppers are now "+(dropperEnabled ? "§aenabled" : "§cdisabled")+"§a");
+    }
+
+    public void toggleDispenser(CommandSender sender){
+        dispenserEnabled = !dispenserEnabled;
+        plugin.getConfig().set("RaccDispensers-enabled", dispenserEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccDispensers are now "+(dispenserEnabled ? "§aenabled" : "§cdisabled")+"§a");
     }
 
 
