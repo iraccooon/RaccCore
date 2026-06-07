@@ -123,7 +123,14 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
         Material itemType = dispensed.getType();
 
         // dispenser-only: skip items that are "used" rather than ejected
-        if(blockType == Material.DISPENSER && (DISPENSER_USE_ITEMS.contains(itemType) || itemType.name().endsWith("_SPAWN_EGG"))) return;
+        if(blockType == Material.DISPENSER && (
+                DISPENSER_USE_ITEMS.contains(itemType) ||
+                        itemType.name().endsWith("_SPAWN_EGG") ||
+                        itemType.name().endsWith("_HELMET") ||
+                        itemType.name().endsWith("_CHESTPLATE") ||
+                        itemType.name().endsWith("_LEGGINGS") ||
+                        itemType.name().endsWith("_BOOTS")
+        )) return;
 
         // skip non-stackable items
         int maxStack = itemType.getMaxStackSize();
