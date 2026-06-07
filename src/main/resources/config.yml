@@ -9,7 +9,7 @@
 
 
 # ======================================================================================================================
-# RaccFurnaces (smelt/cook by stack)
+# RaccStacks (stack-based item movement (smelt by stack in furnace-types, move by stack for droppers and dispensers)
 # ======================================================================================================================
 
 # Enable stack-based furnace processing.
@@ -20,11 +20,6 @@ RaccBlastFurnaces-enabled: false
 
 # Enable stack-based smoker processing.
 RaccSmokers-enabled: false
-
-
-# ======================================================================================================================
-# RaccStacks (droppers/dispensers eject by stack)
-# ======================================================================================================================
 
 # Enable stack-based drops from droppers.
 RaccDroppers-enabled: false

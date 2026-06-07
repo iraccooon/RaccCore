@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RaccCore extends JavaPlugin{
     private RaccCast raccCast;
-    private RaccFurnaces raccFurnaces;
     private RaccStacks raccStacks;
 
     @Override
@@ -14,7 +13,6 @@ public class RaccCore extends JavaPlugin{
         saveDefaultConfig();
         getLogger().info("RaccCore "+getPluginMeta().getVersion()+" has been enabled!");
 
-        raccFurnaces = new RaccFurnaces(this);
         raccStacks = new RaccStacks(this);
         raccCast = new RaccCast(this);
         new RaccLock(this);
@@ -31,12 +29,10 @@ public class RaccCore extends JavaPlugin{
 
     //helper to clean up onEnable()
     private void registerCommands(){
-        RaccCoreReloadCommand raccCoreReload = new RaccCoreReloadCommand(this, raccFurnaces, raccStacks, raccCast);
+        RaccCoreReloadCommand raccCoreReload = new RaccCoreReloadCommand(this, raccStacks, raccCast);
         getCommand("racc").setExecutor(raccCoreReload);
         getCommand("racc").setTabCompleter(raccCoreReload);
         getCommand("giveconcshovel").setExecutor(new GiveRaccConcreteShovelCommand(this));
-        getCommand("raccfurnaces").setExecutor(raccFurnaces);
-        getCommand("raccfurnaces").setTabCompleter(raccFurnaces);
         getCommand("raccstacks").setExecutor(raccStacks);
         getCommand("raccstacks").setTabCompleter(raccStacks);
     }
