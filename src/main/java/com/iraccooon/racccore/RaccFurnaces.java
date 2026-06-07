@@ -197,6 +197,8 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         if(blockType == Material.SMOKER && !smokerEnabled) return;
 
         int items = event.getItemAmount();
-        event.setExpToDrop(event.getExpToDrop() * items);
+        int baseExp = event.getExpToDrop();
+        plugin.getLogger().info("Extract fired - amount: " + items + ", base exp: " + baseExp);
+        event.setExpToDrop(baseExp * items);
     }
 }
