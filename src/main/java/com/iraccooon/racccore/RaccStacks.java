@@ -12,7 +12,10 @@ import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.block.Dropper;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Set;
 
 import java.util.List;
@@ -114,10 +117,6 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
     public void onDispense(BlockDispenseEvent event){
         Material blockType = event.getBlock().getType();
 
-        if(blockType == Material.DROPPER || blockType == Material.DISPENSER){
-            plugin.getLogger().info("Dispense fired - block: " + blockType + ", item: " + event.getItem().getType() + ", amount: " + event.getItem().getAmount());
-        }
-
         // skip if neither is enabled or wrong block type
         if(blockType != Material.DROPPER && blockType != Material.DISPENSER) return;
         if(blockType == Material.DROPPER && !dropperEnabled) return;
@@ -173,6 +172,65 @@ public class RaccStacks implements Listener, CommandExecutor, TabCompleter {
             }
         }
     }
+
+
+    @EventHandler
+    public void onInventoryMove(InventoryMoveItemEvent event){
+        if(!dropperEnabled) return;
+
+        if(!(event.getSource().getHolder() instanceof Dropper dropper)) return;
+
+        ItemStack item = event.getItem();
+        int maxStack = item.getType().getMaxStackSize();
+        if(maxStack <= 1) return;
+
+        Inventory source = event.getSource();
+        Inventory destination = event.getDestination();
+
+        // find the slot in source containing this item
+        for(int i = 0; i < source.getSize(); i++){
+            ItemStack slot = source.getItem(i);
+            if(slot != null && slot.isSimilar(item)){
+                int toMove = Math.min(slot.getAmount(), maxStack);
+
+                // calculate how much space destination has for this item
+                int freeSpace = 0;
+                for(ItemStack destSlot : destination.getContents()){
+                    if(destSlot == null){
+                        freeSpace += maxStack;
+                    } else if(destSlot.isSimilar(item)){
+                        freeSpace += maxStack - destSlot.getAmount();
+                    }
+                }
+
+                int canFit = Math.min(toMove, freeSpace);
+                int overflow = toMove - canFit;
+
+                // move what fits
+                if(canFit > 0){
+                    event.setItem(new ItemStack(item.getType(), canFit));
+                    slot.setAmount(slot.getAmount() - canFit);
+                    if(slot.getAmount() <= 0) source.setItem(i, null);
+                } else {
+                    event.setCancelled(true);
+                }
+
+                // drop overflow to ground
+                if(overflow > 0){
+                    ItemStack drop = item.clone();
+                    drop.setAmount(overflow);
+                    dropper.getBlock().getWorld().dropItemNaturally(
+                            dropper.getBlock().getLocation().add(0.5, 0.5, 0.5), drop
+                    );
+                    slot.setAmount(slot.getAmount() - overflow);
+                    if(slot.getAmount() <= 0) source.setItem(i, null);
+                }
+                break;
+            }
+        }
+    }
+
+
 
 
     @Override
