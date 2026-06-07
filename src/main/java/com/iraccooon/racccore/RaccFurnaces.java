@@ -198,7 +198,6 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
 
         int items = event.getItemAmount();
         int baseExp = event.getExpToDrop();
-        plugin.getLogger().info("Extract fired - amount: " + items + ", base exp: " + baseExp);
         event.setExpToDrop(baseExp * items);
     }
 }
