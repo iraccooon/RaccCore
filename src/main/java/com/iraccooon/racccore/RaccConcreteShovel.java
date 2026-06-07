@@ -16,6 +16,7 @@ public class RaccConcreteShovel implements Listener {
 
     public RaccConcreteShovel(JavaPlugin plugin){
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler

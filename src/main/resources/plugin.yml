@@ -11,6 +11,10 @@ commands:
     description: RaccFurnaces toggle command
     aliases:
       - rfurnace
+  raccstacks:
+    description: RaccStacks toggle command
+    aliases:
+      - rstacks
   maplock:
     description: Locks the map you are holding (cannot copy, does not change state)
   giveconcshovel:
@@ -25,6 +29,9 @@ permissions:
     default: false
   raccfurnaces.admin:
     description: Access to RaccFurnaces commands
+    default: false
+  raccstacks.admin:
+    description: Access to RaccStacks commands
     default: false
   raccmaplock.admin:
     description: Can lock/unlock any map regardless of owner

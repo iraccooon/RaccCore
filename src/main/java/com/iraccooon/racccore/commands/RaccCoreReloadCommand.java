@@ -2,6 +2,7 @@ package com.iraccooon.racccore.commands;
 
 import com.iraccooon.racccore.RaccCast;
 import com.iraccooon.racccore.RaccFurnaces;
+import com.iraccooon.racccore.RaccStacks;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,11 +14,13 @@ import java.util.List;
 public class RaccCoreReloadCommand implements CommandExecutor, TabCompleter{
     private final JavaPlugin plugin;
     private final RaccFurnaces raccFurnaces;
+    private final RaccStacks raccStacks;
     private final RaccCast raccCast;
 
-    public RaccCoreReloadCommand(JavaPlugin plugin, RaccFurnaces raccFurnaces, RaccCast raccCast){
+    public RaccCoreReloadCommand(JavaPlugin plugin, RaccFurnaces raccFurnaces, RaccStacks raccStacks, RaccCast raccCast){
         this.plugin = plugin;
         this.raccFurnaces = raccFurnaces;
+        this.raccStacks = raccStacks;
         this.raccCast = raccCast;
     }
 
@@ -35,6 +38,7 @@ public class RaccCoreReloadCommand implements CommandExecutor, TabCompleter{
 
         plugin.reloadConfig();
         raccFurnaces.reload();
+        raccStacks.reload();
         raccCast.restart();
 
         sender.sendMessage("§aRaccCore config reloaded!");

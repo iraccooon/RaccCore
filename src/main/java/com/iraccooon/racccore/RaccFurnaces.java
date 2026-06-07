@@ -31,7 +31,6 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         this.blastFurnaceEnabled = plugin.getConfig().getBoolean("RaccBlastFurnaces-enabled");
         this.smokerEnabled = plugin.getConfig().getBoolean("RaccSmokers-enabled");
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        plugin.getCommand("raccfurnaces").setExecutor(this);
     }
 
     public void reload(){
@@ -41,7 +40,6 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
     }
 
 
-    //tab complete
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
         if(!sender.hasPermission("raccfurnaces.admin")){
@@ -55,20 +53,8 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         if(args.length == 1){
             switch(args[0].toLowerCase()){
                 case "toggle":
-                    //switch boolean (toggle)
-                    //first way to toggle all
-                    furnaceEnabled = !furnaceEnabled;
-                    blastFurnaceEnabled = !blastFurnaceEnabled;
-                    smokerEnabled = !smokerEnabled;
-                    //set and save config
-                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
-                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
-                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
-                    plugin.saveConfig();
-                    //send message
-                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    // switch all
+                    toggleAll(sender);
                     return true;
                 default:
                     sender.sendMessage("§eUsage: /raccfurnaces toggle <furnaces | blastfurnaces | smokers | all>");
@@ -96,18 +82,8 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
                     sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
                     return true;
                 case "all":
-                    //2nd way to toggle all
-                    furnaceEnabled = !furnaceEnabled;
-                    blastFurnaceEnabled = !blastFurnaceEnabled;
-                    smokerEnabled = !smokerEnabled;
-                    //save and set config
-                    plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
-                    plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
-                    plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
-                    plugin.saveConfig();
-                    sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
-                    sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
+                    // switch all
+                    toggleAll(sender);
                     return true;
                 default:
                     sender.sendMessage("§eUsage: /raccfurnaces toggle <furnaces | blastfurnaces | smokers | all>");
@@ -117,18 +93,18 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         return true;
     }
 
+
     @Override
     public @Nullable List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
-        //tab autocomplete
         if(args.length == 1){
             return List.of("toggle");
         }
         if(args.length == 2){
             return List.of("furnaces", "blastfurnaces", "smokers", "all");
         }
-
         return List.of();
     }
+
 
     @EventHandler
     public void onSmelt(FurnaceSmeltEvent event){
@@ -188,6 +164,7 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         }
     }
 
+
     @EventHandler
     public void onExtract(FurnaceExtractEvent event){
         Material blockType = event.getBlock().getType();
@@ -199,5 +176,20 @@ public class RaccFurnaces implements Listener, CommandExecutor, TabCompleter {
         int items = event.getItemAmount();
         int baseExp = event.getExpToDrop();
         event.setExpToDrop(baseExp * items);
+    }
+
+
+    public void toggleAll(CommandSender sender){
+        furnaceEnabled = !furnaceEnabled;
+        blastFurnaceEnabled = !blastFurnaceEnabled;
+        smokerEnabled = !smokerEnabled;
+        //save and set config
+        plugin.getConfig().set("RaccFurnaces-enabled", furnaceEnabled);
+        plugin.getConfig().set("RaccBlastFurnaces-enabled", blastFurnaceEnabled);
+        plugin.getConfig().set("RaccSmokers-enabled", smokerEnabled);
+        plugin.saveConfig();
+        sender.sendMessage("§aRaccFurnaces are now "+(furnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+        sender.sendMessage("§aRaccBlastFurnaces are now "+(blastFurnaceEnabled ? "§aenabled" : "§cdisabled")+"§a");
+        sender.sendMessage("§aRaccSmokers are now "+(smokerEnabled ? "§aenabled" : "§cdisabled")+"§a");
     }
 }

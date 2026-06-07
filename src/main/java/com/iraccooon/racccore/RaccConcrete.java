@@ -24,6 +24,7 @@ public class RaccConcrete implements Listener {
 
     public RaccConcrete(JavaPlugin plugin) {
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     //step 1: player drops concrete powder — check permission and track the item

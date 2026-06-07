@@ -1,26 +1,60 @@
-#RaccFurnaces config
-#toggle for furnaces
+# ======================================================================================================================
+# RaccCore Configuration
+# Version: 1.1.2
+#
+# Documentation: https://github.com/iraccooon/RaccCore/tree/main
+#
+# Changes take effect after a server restart or plugin reload (/racccore reload).
+# ======================================================================================================================
+
+
+# ======================================================================================================================
+# RaccFurnaces (smelt/cook by stack)
+# ======================================================================================================================
+
+# Enable stack-based furnace processing.
 RaccFurnaces-enabled: false
-#toggle for blast furnaces
+
+# Enable stack-based blast furnace processing.
 RaccBlastFurnaces-enabled: false
-#toggle for smokers
+
+# Enable stack-based smoker processing.
 RaccSmokers-enabled: false
 
 
-#1561 = default diamond durability (number of blocks broken before durability hits 0)
-#enter "false" to make unbreakable
+# ======================================================================================================================
+# RaccStacks (droppers/dispensers eject by stack)
+# ======================================================================================================================
+
+# Enable stack-based drops from droppers.
+RaccDroppers-enabled: false
+
+# Enable stack-based ejections from dispensers.
+RaccDispensers-enabled: false
+
+
+# ======================================================================================================================
+# Concrete Shovel (set durability)
+# ======================================================================================================================
+
+# 1561 = default diamond durability (number of blocks broken before durability hits 0).
+# Set to "false" to make the shovel unbreakable.
 concrete-shovel-durability: 1561
 
 
-#scheduled broadcasts
+# ======================================================================================================================
+# RaccCast (scheduled chat broadcasts)
+# ======================================================================================================================
+
 broadcasts:
-  #interval between messages, "<int><unit>" (e.g. "1min" or "60sec")
+  # Interval between messages.
+  # Format: "<int><unit>" (e.g. "1min" or "60sec").
   interval: "10min"
-  #messages use minimessage syntax
-  #must be inline ('\n' for next line)
-  #no message limit, broadcast in top-down order
-  #create new message with hyphen (-), and surround in quotation marks
-  #see https://webui.advntr.dev/ for easy formatting environment
+  # Messages use MiniMessage syntax.
+  # Must be defined on a single line ('\n' for line breaks).
+  # Messages are broadcast in top-down order.
+  # Create new message with hyphen (-), and surround in quotation marks.
+  # See https://webui.advntr.dev/ for easy MiniMessage formatting.
   messages:
   - "<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</dark_gray>\n<light_purple><bold>OracleMC Discord</bold></light_purple>\n<gray>Stay up to date with server news, events, and giveaways.</gray>\n<hover:show_text:'<gray>Click to join!</gray>'><click:open_url:'https://discord.gg/XuC6mwsfA8'><aqua><bold>CLICK TO JOIN DISCORD</bold></aqua></click>\n<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</dark_gray>"
   - "<i><u><b><color:#00ff04>Example Message 2</color></b></u></i>"
