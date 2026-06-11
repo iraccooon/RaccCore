@@ -1,8 +1,8 @@
 # RaccCore
 
-Custom core plugin for OracleMC servers. Built on Paper 26.1+.
+Custom core plugin for OracleMC. Built on Paper 26.1+.
 
-**NOTE: RaccCore does not currently track or log any activity**
+**NOTE: Logging is not yet implemented — see [Roadmap](#roadmap)**
 
 ---
 
@@ -150,6 +150,20 @@ broadcasts:
     - "<gold>Welcome to the server!</gold>"
     - "<aqua>Join our Discord!</aqua>"
 ```
+
+---
+
+## Roadmap
+- [ ] Logging & activity tracking
+- [ ] Per-message broadcast scheduling (RaccCast)
+- [ ] Shuffle mode for broadcasts (RaccCast)
+- [ ] Discord Webhook
+- [ ] Scheduled Server Backups
+- [ ] RaccAnnounce — admin broadcast with formatted alert style 
+- [ ] RaccRewards — playtime milestone rewards 
+- [ ] RaccAlert — staff notification when keywords detected in chat
+- [ ] RaccAutoSort — sort inventory/chest contents 
+- [ ] RaccPoll — admin quick polls in chat
 
 ---
 
