@@ -2,6 +2,8 @@
 
 Custom core plugin for OracleMC servers. Built on Paper 26.1+.
 
+**NOTE: RaccCore does not currently track or log any activity**
+
 ---
 
 ## Features
