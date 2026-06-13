@@ -87,7 +87,7 @@ concrete-shovel-durability: 1561  # number of uses before breaking
 ---
 
 ### RaccCast (Broadcasts)
-Scheduled chat broadcasts with full MiniMessage support including colors, gradients, hover text, and clickable links.
+Automated chat broadcasts with full MiniMessage support including colors, gradients, hover text, and clickable links. Supports both interval-based cycling and time-based scheduled messages.
 
 **Config**
 ```yaml
@@ -96,9 +96,17 @@ broadcasts:
   messages:
     - "<gold>Welcome to the server!</gold>"
     - "<click:open_url:'https://discord.gg/example'><aqua>Join our Discord!</aqua></click>"
+
+scheduled:
+  - message: "<red>Server restart in 5 minutes!</red>"
+    time: "18:55"  # 24h format, server timezone
+  - message: "Events are live — check /events!"
+    time: "13:00"
+    days: ["MON", "TUE", "WED", "THU", "FRI"]  # optional; omit for every day
 ```
 
-Messages cycle in order. Supports full MiniMessage formatting. See https://webui.advntr.dev/ for easy formatting.
+Broadcast (unscheduled) messages cycle in order. Supports full MiniMessage formatting.  
+See https://webui.advntr.dev/ for easy formatting.
 
 ---
 
@@ -154,8 +162,6 @@ broadcasts:
 ---
 
 ## Roadmap
-- [ ] Per-message broadcast scheduling (RaccCast)
-- [ ] Shuffle mode for broadcasts (RaccCast)
 - [ ] RaccAnnounce — admin broadcast with formatted alert style
 - [ ] RaccAlert — staff notification when keywords detected in chat
 - [ ] RaccPoll — admin quick polls in chat
