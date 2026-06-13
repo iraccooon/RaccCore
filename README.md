@@ -154,16 +154,16 @@ broadcasts:
 ---
 
 ## Roadmap
-- [ ] Logging & activity tracking
 - [ ] Per-message broadcast scheduling (RaccCast)
 - [ ] Shuffle mode for broadcasts (RaccCast)
+- [ ] RaccAnnounce — admin broadcast with formatted alert style
+- [ ] RaccAlert — staff notification when keywords detected in chat
+- [ ] RaccPoll — admin quick polls in chat
+- [ ] RaccRewards — playtime milestone rewards
+- [ ] RaccAutoSort — sort inventory/chest contents
 - [ ] Discord Webhook
 - [ ] Scheduled Server Backups
-- [ ] RaccAnnounce — admin broadcast with formatted alert style 
-- [ ] RaccRewards — playtime milestone rewards 
-- [ ] RaccAlert — staff notification when keywords detected in chat
-- [ ] RaccAutoSort — sort inventory/chest contents 
-- [ ] RaccPoll — admin quick polls in chat
+- [ ] Logging & activity tracking
 
 ---
 
