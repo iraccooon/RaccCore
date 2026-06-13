@@ -65,7 +65,15 @@ broadcasts:
   - "<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>\n<color:#ff6b6b>✦</color> <color:#cc00ff><bold>OracleMC Community</bold></color> <color:#ff6b6b>✦</color>\n<color:#f2f3f4>Join our community on Discord — stay up to date with server news, events, and activities.</color>\n<hover:show_text:'<color:#f2f3f4>Click to join!</color>'><click:open_url:'https://discord.gg/XuC6mwsfA8'><color:#ff6b6b><bold>JOIN THE DISCORD</bold></color></click></hover>\n<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>"
   - "<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>\n<color:#ff6b6b>✦</color> <color:#cc00ff><bold>OracleMC Store</bold></color> <color:#ff6b6b>✦</color>\n<color:#f2f3f4>Support the server and unlock exclusive ranks, perks, and coin packages.</color>\n<hover:show_text:'<color:#f2f3f4>Click to visit!</color>'><click:open_url:'https://oraclemc.online/'><color:#ff6b6b><bold>VISIT THE STORE</bold></color></click></hover>\n<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>"
   - "<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>\n<color:#ff6b6b>✦</color> <color:#cc00ff><bold>Join the Team</bold></color> <color:#ff6b6b>✦</color>\n<color:#f2f3f4>Think you'd make a great addition to the OracleMC staff team? We're looking for dedicated, mature players to help our community.</color>\n<hover:show_text:'<color:#f2f3f4>Click to apply!</color>'><click:open_url:'APPLICATION_URL'><color:#ff6b6b><bold>APPLY NOW</bold></color></click></hover>\n<color:#777777>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</color>"
+scheduled:
+  - message: "<color:#ff6b6b>Server restart in 5 minutes!</color>"
+    # 24h format, server timezone
+    time: "18:55"
+    # optional; omit for every day
 
+  - message: "<color:#cc00ff>Events are live today — check /events!</color>"
+    time: "13:00"
+    days: [ "MON", "TUE", "WED", "THU", "FRI" ]
 
 
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
