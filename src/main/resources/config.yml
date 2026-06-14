@@ -104,7 +104,7 @@ discord-webhook:
   enabled: true
 
   # Discord webhook URL. Create via: Channel Settings -> Integrations -> Webhooks -> New Webhook.
-  url: "https://discord.com/api/webhooks/1515548133877350474/PzMKPIJyQhlJbf62ItjG9rTKVsU_BVpCVU9jGY9XMXIAcVNKaM1QDkSoyFSVzn19xCFW"
+  url: ""
 
   events:
     # Sends a message when the server finishes starting up and is ready for connections.
