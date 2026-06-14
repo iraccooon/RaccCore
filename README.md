@@ -167,7 +167,6 @@ broadcasts:
 - [ ] RaccPoll — admin quick polls in chat
 - [ ] RaccRewards — playtime milestone rewards
 - [ ] RaccAutoSort — sort inventory/chest contents
-- [ ] Discord Webhook
 - [ ] Scheduled Server Backups
 - [ ] Logging & activity tracking
 
