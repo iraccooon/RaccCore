@@ -1,5 +1,6 @@
 package com.iraccooon.racccore.commands;
 
+import com.iraccooon.racccore.DiscordWebhook;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class RaccConcreteShovelCommands implements CommandExecutor, TabCompleter {
     private final JavaPlugin plugin;
+    private final DiscordWebhook webhook;
 
-    public RaccConcreteShovelCommands(JavaPlugin plugin){
+    public RaccConcreteShovelCommands(JavaPlugin plugin, DiscordWebhook webhook){
         this.plugin = plugin;
+        this.webhook = webhook;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class RaccConcreteShovelCommands implements CommandExecutor, TabCompleter
         target.getInventory().addItem(shovel);
         target.sendMessage("§bYou received the Concrete Shovel!");
         sender.sendMessage("§aGave Concrete Shovel to §b" + target.getName() + "§a!");
+        webhook.log("item-given", "Item Given", sender.getName()+" gave a Concrete Shovel to "+target.getName(), 0x5865F2);
         return true;
     }
 

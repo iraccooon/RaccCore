@@ -1,5 +1,5 @@
 name: RaccCore
-version: 1.2.2
+version: 1.2.3
 main: com.iraccooon.racccore.RaccCore
 api-version: '26.1.2' #do not edit
 description: Core plugin for RaccCore features

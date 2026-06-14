@@ -1,6 +1,6 @@
 # ======================================================================================================================
 # RaccCore Configuration
-# Version: 1.2.1
+# Version: 1.2.3
 #
 # Documentation: https://github.com/iraccooon/RaccCore/tree/main
 #
@@ -10,6 +10,7 @@
 #   /racccore reload | help ── 'racccore.admin'
 # ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 # ======================================================================================================================
+
 
 
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -35,6 +36,7 @@ RaccDroppers-enabled: false
 RaccDispensers-enabled: false
 
 
+
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # Concrete Shovel (set durability)
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -48,9 +50,13 @@ RaccDispensers-enabled: false
 concrete-shovel-durability: 1561
 
 
+
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # RaccCast (scheduled chat broadcasts)
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ┄ Permissions ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+#   None
+# ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 
 broadcasts:
   # Interval between messages.
@@ -76,9 +82,38 @@ scheduled:
     time: "18:55"
 
 
+
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # RaccLock (map locking)
 # ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # ┄ Permissions ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 #   Lock/unlock any map ── 'racclock.admin'
 # ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+
+
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# Discord Webhook
+# ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ┄ Permissions ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+#   None
+# ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+
+discord-webhook:
+  # Master toggle. If false, no webhook messages are sent regardless of the settings below.
+  enabled: true
+
+  # Discord webhook URL. Create via: Channel Settings -> Integrations -> Webhooks -> New Webhook.
+  url: "https://discord.com/api/webhooks/1515548133877350474/PzMKPIJyQhlJbf62ItjG9rTKVsU_BVpCVU9jGY9XMXIAcVNKaM1QDkSoyFSVzn19xCFW"
+
+  events:
+    # Sends a message when the server finishes starting up and is ready for connections.
+    server-status: true
+
+    # Sends a message when an admin uses /giveconcshovel to give a player the Concrete Shovel.
+    # (Additional item messages planned for future implementation.)
+    item-given: true
+
+    # Sends a message when a player's chat message is flagged as inappropriate.
+    # (Not yet implemented - reserved for future chat filtering feature.)
+    flagged-chat: true
